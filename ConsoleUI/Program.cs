@@ -14,9 +14,25 @@ namespace ConsoleUI
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
+            CarTest();
+            //CarTestOld(carManager, brandManager, colorManager);
 
+        }
 
+        private static void CarTest()
+        {
+            CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------");
+            Console.WriteLine("Id      Brand Name                      Color Name                      Daily Price     ");
+            Console.WriteLine("-------------------------------------------------------------------------------------------------------");
+            foreach (var car in carManager.GetCarDetails())
+            {
+                Console.WriteLine($"{car.CarId}\t{car.BrandName}\t{car.ColorName}\t{car.DailyPrice}");
+            }
+        }
 
+        private static void CarTestOld(CarManager carManager, BrandManager brandManager, ColorManager colorManager)
+        {
 
             Console.WriteLine("------------------------------------------Brand Id = 1-------------------------------------------------");
             Console.WriteLine("Id      Color                   Brand                   Model Year      Daily Price     Description");
@@ -58,7 +74,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine($"{car.CarId}\t{colorManager.GetById(car.ColorId).ColorName}{brandManager.GetById(car.BrandId).BrandName}{car.ModelYear}\t\t{car.DailyPrice}\t{car.Description}");
             }
-
         }
     }
 }
