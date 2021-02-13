@@ -14,10 +14,110 @@ namespace ConsoleUI
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+
+            //UserTest();
+
+            //UserAdded();
+
+            //CustomerAdded();
+
+            //RentalAdded(); ----> HATAA VERİYOR TEKRAR BAK
+
             //CarTest();
             //CarTestOld(carManager, brandManager, colorManager);
-            CarDetailsTest(carManager);
+            //CarDetailsTest(carManager);
         }
+        private static void RentalAdded()
+        {
+            DateTime RentDate = new DateTime(2021, 2, 14);
+            DateTime ReturnDate = new DateTime(2021, 2, 15);
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(
+                new Rental
+                {
+
+                    CarId = 9,
+                    CustomerId = 1,
+                    RentDate = RentDate,
+                    ReturnDate = ReturnDate
+
+                });
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void CustomerAdded()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.Add(
+                new Customer
+                {
+
+                    UserId = 11,
+                    CompanyName = "AnyCompany"
+
+                });
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void UserAdded()
+        {
+            UserManager user = new UserManager(new EfUserDal());
+            var result = user.Add(new User
+            {
+                FirstName = "Cemile",
+                LastName = "Köse",
+                Email = "cemile@gmail.com",
+                Password = "123456789"
+            });
+
+            if (result.Success == true)
+            {
+                Console.WriteLine(result.Message);
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
+        private static void UserTest()
+        {
+            UserManager user = new UserManager(new EfUserDal());
+            var result = user.GetAll();
+
+            if (result.Success == true)
+            {
+                foreach (var item in result.Data)
+                {
+                    Console.WriteLine(item.FirstName + " " + item.LastName + " " + item.Email);
+                }
+
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+        }
+
 
         private static void CarDetailsTest(CarManager carManager)
         {

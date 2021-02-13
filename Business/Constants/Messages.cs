@@ -36,5 +36,21 @@ namespace Business.Constants
         public static string ColorNameInvalid = "Renk adi bilgisi en az 3 karakterden oluşmalı";
         public static string CarUpdatedInvalid = "Araba güncellenemedi";
 
+        public static string CustomerAdded = "Müşteri eklendi";
+        public static string CustomerListed = "Müşteriler listelendi";
+        public static string CustomerDeleted = "Müşteri silindi";
+        public static string CustomerUpdated = "Müşteri güncellendi.";
+
+        public static string CarRentalInvalid = "Araç şu an kiralanamıyor!!! Başka bir müşteride olabilir";
+        public static string RentalAdded = "Araç kiralandı";
+        public static string RentalDeleted = "Kiralama işlemi silindi";
+        public static string RentalUpdated = "Kiralama işlemi güncellendi";
+        public static string RentalListed = "Kiralamalar listelendi";
+
+        public static string UserAdded = "Kullanıcı eklendi";
+        public static string UserDeleted = "Kullanıcı silindi";
+        public static string UserUpdated = "Kullanıcı güncellendi";
+        public static string UserListed = "Kullanıcılar listelendi";
+
     }
 }
