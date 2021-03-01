@@ -1,8 +1,6 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace Business.ValidationRules.FluentValidation
 {
@@ -16,8 +14,6 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(u => u.LastName).MinimumLength(3);
             RuleFor(u => u.Email).NotEmpty();
             RuleFor(p => p.Email).Must(Contains).WithMessage("Email @ işareti içermelidir");
-            RuleFor(u => u.Password).NotEmpty();
-            RuleFor(u => u.Password).MinimumLength(5);
         }
 
         private bool Contains(string arg)

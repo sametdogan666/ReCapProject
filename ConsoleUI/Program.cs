@@ -1,4 +1,5 @@
 ﻿using Business.Concrete;
+using Core.Entities.Concrete;
 using DataAccess.Concrete.EntityFramework;
 using DataAccess.Concrete.InMemory;
 using Entities.Concrete;
@@ -10,11 +11,11 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            CarManager carManager = new CarManager(new EfCarDal());
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
-            ColorManager colorManager = new ColorManager(new EfColorDal());
+            //CarManager carManager = new CarManager(new EfCarDal());
+            //BrandManager brandManager = new BrandManager(new EfBrandDal());
+            //ColorManager colorManager = new ColorManager(new EfColorDal());
 
-            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            //CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
             //UserTest();
 
@@ -28,7 +29,7 @@ namespace ConsoleUI
             //CarTestOld(carManager, brandManager, colorManager);
             //CarDetailsTest(carManager);
         }
-        private static void RentalAdded()
+        /*private static void RentalAdded()
         {
             DateTime RentDate = new DateTime(2021, 2, 14);
             DateTime ReturnDate = new DateTime(2021, 2, 15);
@@ -54,7 +55,9 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
+        */
 
+        /*
         private static void CustomerAdded()
         {
             CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
@@ -76,7 +79,9 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
+        */
 
+        /*
         private static void UserAdded()
         {
             UserManager user = new UserManager(new EfUserDal());
@@ -98,7 +103,9 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
+        */
 
+        /*
         private static void UserTest()
         {
             UserManager user = new UserManager(new EfUserDal());
@@ -117,8 +124,9 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
+        */
 
-
+        /*
         private static void CarDetailsTest(CarManager carManager)
         {
             var result = carManager.GetCarDetails();
@@ -135,6 +143,7 @@ namespace ConsoleUI
                 Console.WriteLine(result.Message);
             }
         }
+        */
 
         /*private static void CarTest()
         {

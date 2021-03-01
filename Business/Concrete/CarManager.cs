@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -23,6 +24,7 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [SecuredOperation("car.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
@@ -71,14 +73,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(), Messages.CarDetailsListed);
         }
 
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
-            if (car.DailyPrice < 0)
-            {
-                return new ErrorResult(Messages.CarUpdatedInvalid);
-
-            }
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
 
