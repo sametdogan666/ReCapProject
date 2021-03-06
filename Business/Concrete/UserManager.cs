@@ -10,6 +10,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.BusinessAspect.Autofac;
 
 namespace Business.Concrete
 {
@@ -27,16 +28,45 @@ namespace Business.Concrete
             return _userDal.GetClaims(user);
         }
 
+        public IDataResult<User> GetById(int userId)
+        {
+            var getById = _userDal.Get(u => u.Id == userId);
+            return new SuccessDataResult<User>(getById);
+        }
+
         [ValidationAspect(typeof(UserValidator))]
+        [SecuredOperation("admin")]
         public void Add(User user)
         {
             _userDal.Add(user);
 
         }
 
+        [SecuredOperation("admin")]
+        [ValidationAspect(typeof(UserValidator))]
+        public IResult Update(User user)
+        {
+            _userDal.Update(user);
+            return new SuccessResult(Messages.UserUpdated);
+        }
+
+        [ValidationAspect(typeof(UserValidator))]
+        [SecuredOperation("admin")]
+        public IResult Delete(User user)
+        {
+            _userDal.Delete(user);
+            return new SuccessResult(Messages.UserDeleted);
+        }
+
         public User GetByMail(string email)
         {
             return _userDal.Get(u => u.Email == email);
+        }
+
+        public IDataResult<List<User>> GetAll()
+        {
+            var getAll = _userDal.GetAll();
+            return new SuccessDataResult<List<User>>(getAll);
         }
     }
 }

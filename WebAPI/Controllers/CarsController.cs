@@ -90,6 +90,17 @@ namespace WebAPI.Controllers
             }
             return BadRequest(result);
         }
+        [HttpPost("transactionalOperation")]
+        public IActionResult TransactionalOperation(Car car)
+        {
+            var result = _carService.TransactionalOperation(car);
+
+            if (!result.Success)
+                return BadRequest(result);
+
+            return Ok(result);
+        }
+
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {

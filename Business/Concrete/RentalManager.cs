@@ -10,6 +10,8 @@ using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Aspects.Autofac.Caching;
+using Business.BusinessAspect.Autofac;
 
 namespace Business.Concrete
 {
@@ -23,12 +25,16 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get")]
+        [SecuredOperation("admin")]
         public IResult Add(Rental rental)
         {
             _rentalDal.Add(rental);
             return new SuccessResult(Messages.RentalAdded);
         }
 
+        [CacheRemoveAspect("IRentalService.Get")]
+        [SecuredOperation("admin")]
         public IResult Delete(Rental rental)
         {
             _rentalDal.Delete(rental);
@@ -46,6 +52,8 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(RentalValidator))]
+        [CacheRemoveAspect("IRentalService.Get")]
+        [SecuredOperation("admin")]
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);

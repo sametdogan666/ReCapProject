@@ -9,6 +9,7 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Business.BusinessAspect.Autofac;
 
 namespace Business.Concrete
 {
@@ -22,12 +23,14 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("admin")]
         public IResult Add(Brand brand)
         {
             _brandDal.Add(brand);
             return new SuccessResult(Messages.BrandAdded);
         }
 
+        [SecuredOperation("admin")]
         public IResult Delete(Brand brand)
         {
             _brandDal.Delete(brand);
@@ -46,6 +49,7 @@ namespace Business.Concrete
         }
 
         [ValidationAspect(typeof(BrandValidator))]
+        [SecuredOperation("admin")]
         public IResult Update(Brand brand)
         {            
             _brandDal.Update(brand);

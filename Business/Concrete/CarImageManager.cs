@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.BusinessAspect.Autofac;
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
@@ -23,7 +24,9 @@ namespace Business.Concrete
         {
             _carImageDal = carImageDal;
         }
+
         [ValidationAspect(typeof(CarImageValidator))]
+        [SecuredOperation("admin")]
         public IResult Add(IFormFile file, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckImageLimitExceeded(carImage.CarId));
@@ -36,14 +39,17 @@ namespace Business.Concrete
             _carImageDal.Add(carImage);
             return new SuccessResult();
         }
-        [ValidationAspect(typeof(CarImageValidator))]
+
+        [SecuredOperation("admin")]
         public IResult Delete(CarImage carImage)
         {
             FileHelper.Delete(carImage.ImagePath);
             _carImageDal.Delete(carImage);
             return new SuccessResult();
         }
+
         [ValidationAspect(typeof(CarImageValidator))]
+        [SecuredOperation("admin")]
         public IResult Update(IFormFile file, CarImage carImage)
         {
             carImage.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.Id == carImage.Id).ImagePath, file);
@@ -66,10 +72,9 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(CheckIfCarImageNull(id));
         }
 
-        //business rules
-        private IResult CheckImageLimitExceeded(int carid)
+        private IResult CheckImageLimitExceeded(int carId)
         {
-            var carImagecount = _carImageDal.GetAll(p => p.CarId == carid).Count;
+            var carImagecount = _carImageDal.GetAll(p => p.CarId == carId).Count;
             if (carImagecount >= 5)
             {
                 return new ErrorResult(Messages.CarImageLimitExceeded);

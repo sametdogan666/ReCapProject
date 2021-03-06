@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 
 namespace Business.Concrete
 {
@@ -88,6 +89,19 @@ namespace Business.Concrete
             _carDal.Update(car);
             return new SuccessResult(Messages.CarUpdated);
 
+        }
+
+        [SecuredOperation("admin,car.admin")]
+        [ValidationAspect(typeof(CarValidator))]
+        [TransactionScopeAspect]
+        public IResult TransactionalOperation(Car car)
+        {
+            _carDal.Update(car);
+            if (car.DailyPrice < 50)
+                throw new Exception(Messages.CarUpdatedInvalid);
+
+            _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdated);
         }
     }
 }
